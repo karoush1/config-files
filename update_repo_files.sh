@@ -16,7 +16,7 @@ copy_file () {
 }
 
 # Neovim files
-copy_file /home/$USER/config/nvim init.vim nvim
+copy_file /home/$USER/.config/nvim init.vim nvim
 
 # .gitconfig
 copy_file /home/$USER .gitconfig git

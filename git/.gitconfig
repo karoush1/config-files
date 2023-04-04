@@ -1,0 +1,7 @@
+[core]
+	editor = nvim
+[user]
+	email = kazuyan753@gmail.com
+	name = Kazuya Nakamura
+[alias]
+	lg = log --decorate --oneline --color --graph --
