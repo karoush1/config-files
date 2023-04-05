@@ -4,16 +4,22 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "Script located in $SCRIPT_DIR"
 
+CURR_DATE_TIME_FMT="$(date +%Y%m%d%H%M%S)"
+# echo "$CURR_TIME_FMT"
+
 # See update_files.sh for more info. Param order was changed here during copy
 # param1 = Local computer location of the config file
 # param2 = Config filename
 # param3 = Git repo directory target
 copy_file () {
-    if [ -f "$1" ]; then
-        cp -v $SCRIPT_DIR/$3/$2 $1/$2
-    else
-        echo "Target directory $1 does not exist. Skipping"
+    if ! [ -d "$1" ]; then
+        echo "Target directory $1 does not exist. Creating..."
+        mkdir -p $1
+    elif [ -f "$1/$2" ]; then
+        echo "Target file $1/$2 exists. Creating backup as $1/$2-$CURR_DATE_TIME_FMT.backup"
+        mv $1/$2 $1/$2-$CURR_DATE_TIME_FMT.backup
     fi
+    cp -v $SCRIPT_DIR/$3/$2 $1/$2
 }
 
 # Neovim files
@@ -31,6 +37,7 @@ LOCAL_DIR=/home/$USER/.local/share/nvim/site/pack
 # Update variable for plugins
 TARGET_DIR=$LOCAL_DIR/plugins/start
 if ! [ -d "$TARGET_DIR" ]; then
+    echo "Target directory $TARGET_DIR does not exist. Creating..."
     mkdir -p $TARGET_DIR
 fi
 
@@ -47,6 +54,7 @@ git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git
 # Update variable for themes
 TARGET_DIR=$LOCAL_DIR/colors/start
 if ! [ -d "$TARGET_DIR" ]; then
+    echo "Target directory $TARGET_DIR does not exist. Creating..."
     mkdir -p $TARGET_DIR
 fi
 
