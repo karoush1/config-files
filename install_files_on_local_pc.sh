@@ -17,7 +17,7 @@ copy_file () {
 }
 
 # Neovim files
-copy_file /home/$USER/config/nvim init.vim nvim
+copy_file /home/$USER/.config/nvim init.vim nvim
 
 # .gitconfig
 copy_file /home/$USER .gitconfig git
@@ -34,14 +34,15 @@ if ! [ -d "$TARGET_DIR" ]; then
     mkdir -p $TARGET_DIR
 fi
 
-git clone -C $TARGET_DIR https://github.com/python-mode/python-mode.git
-git clone -C $TARGET_DIR https://github.com/hugolgst/vimsence.git
-git clone -C $TARGET_DIR https://github.com/vim-airline/vim-airline
-git clone -C $TARGET_DIR https://github.com/preservim/nerdtree.git
-git clone -C $TARGET_DIR https://github.com/airblade/vim-gitgutter.git
-git clone -C $TARGET_DIR https://github.com/rhysd/vim-grammarous.git
-git clone -C $TARGET_DIR https://github.com/neomake/neomake.git
-git clone -C $TARGET_DIR https://github.com/Xuyuanp/nerdtree-git-plugin.git
+cd $TARGET_DIR
+git clone https://github.com/python-mode/python-mode.git
+git clone https://github.com/hugolgst/vimsence.git
+git clone https://github.com/vim-airline/vim-airline
+git clone https://github.com/preservim/nerdtree.git
+git clone https://github.com/airblade/vim-gitgutter.git
+git clone https://github.com/rhysd/vim-grammarous.git
+git clone https://github.com/neomake/neomake.git
+git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git
 
 # Update variable for themes
 TARGET_DIR=$LOCAL_DIR/colors/start
@@ -49,5 +50,8 @@ if ! [ -d "$TARGET_DIR" ]; then
     mkdir -p $TARGET_DIR
 fi
 
+cd $TARGET_DIR
 # Dracula Theme
 git clone -C $TARGET_DIR https://github.com/dracula/vim.git
+
+cd $SCRIPT_DIR
